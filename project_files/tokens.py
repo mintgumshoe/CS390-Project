@@ -11,11 +11,17 @@ class TokenType:
     RPAREN = "RPAREN"
     SEMI = "SEMI"
 
+    # Addition: Math Operands
+    LESSTHAN = "LESSTHAN"
+    MORETHAN = "MORETHAN"
+    MODULUS = "MODULUS"
+
     # Multi-character tokens
     NUMBER = "NUMBER"
     ID = "ID"
     LET = "LET"
     PRINT = "PRINT"
+    STRING = "STRING"
 
     EOF = "EOF"
 

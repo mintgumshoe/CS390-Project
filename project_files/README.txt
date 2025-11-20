@@ -44,9 +44,9 @@ identifiers
 
 keywords (let, print)
 
-operators (+, -, *, /)
+operators (+, -, *, /, <, >, %)
 
-symbols (=, (, ), ;)
+symbols (=, (, ), ", ;)
 
 Skips whitespace
 
@@ -83,6 +83,8 @@ UnaryOp(op, expr)
 Num(value)
 
 Var(name)
+
+Str(value)
 
 Example:
 
@@ -141,5 +143,63 @@ expr         → term (("+"|"-") term)*
 term         → factor (("*"|"/") factor)*
 factor       → NUMBER
              | ID
+             | STRING
              | "(" expr ")"
              | ("+"|"-") factor
+
+-------------------------------------------------------------
+interpreter.py
+-------------------------------------------------------------
+
+Implements the Interpreter for executing the Abstract Syntax Tree (AST).
+
+Purpose:
+
+The interpreter takes the parsed AST and executes the program, evaluating expressions and handling variable assignments.
+
+Responsibilities:
+
+Stores variable values in a symbol table.
+
+Provides methods to visit different types of nodes in the AST.
+
+Handles the following node types:
+
+Program
+Assign
+Print
+Binary operations (e.g., +, -, *, /, <, >, %)
+Unary operations (e.g., +, -)
+Numeric values
+String values
+Variable references
+
+Main Entry Point:
+
+`interpret(ast)`: Accepts the root of the AST and initiates the execution by visiting the appropriate nodes.
+
+
+-------------------------------------------------------------
+coderunner.py
+-------------------------------------------------------------
+
+Serves as the entry point for executing the pseudo-programming language.
+
+Purpose:
+
+Reads source code from a file, tokenizes it, parses it into an AST, and then interprets the AST.
+
+Workflow:
+
+1. Read the pseudocode from a specified file passed as an argument from the terminal.
+2. Initialize the lexer to create tokens from the source code.
+3. Create a parser to convert the token stream into an AST.
+4. Use the interpreter to execute the AST.
+
+Usage Example:
+
+To run a script named `script.txt`:
+
+python coderunner.py script.txt
+
+This command reads `script.txt`, processes the code, and executes it, printing results to the console.

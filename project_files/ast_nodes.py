@@ -42,3 +42,7 @@ class Num(AST):
 @dataclass
 class Var(AST):
     name: str
+
+@dataclass 
+class Str(AST):
+    value: str

@@ -1,0 +1,6 @@
+let w = 2;
+let x = w * 7;
+let y = x < w;
+let z = (2 * w) > 5;
+print(y);
+print(z);

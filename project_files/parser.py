@@ -2,7 +2,7 @@ from tokens import TokenType
 from lexer import Lexer
 from ast_nodes import (
     Program, Assign, Print,
-    BinOp, UnaryOp, Num, Var
+    BinOp, UnaryOp, Num, Var, Str
 )
 
 
@@ -77,7 +77,7 @@ class Parser:
     def term(self):
         node = self.factor()
 
-        while self.current_token.type in (TokenType.MUL, TokenType.DIV):
+        while self.current_token.type in (TokenType.MUL, TokenType.DIV, TokenType.MODULUS, TokenType.LESSTHAN, TokenType.MORETHAN):
             op = self.current_token
             self.eat(op.type)
             node = BinOp(node, op, self.factor())
@@ -104,5 +104,9 @@ class Parser:
             node = self.expr()
             self.eat(TokenType.RPAREN)
             return node
+        
+        if self.current_token.type == TokenType.STRING:
+            self.eat(TokenType.STRING)
+            return Str(tok.value)
 
         raise SyntaxError(f"Unexpected token {tok} at pos {tok.pos}")

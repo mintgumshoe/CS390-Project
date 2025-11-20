@@ -33,6 +33,21 @@ class Lexer:
         value = float(literal) if "." in literal else int(literal)
         return Token(TokenType.NUMBER, value, start)
 
+    # Addition: String reader
+    def read_string(self):
+        self.advance()  # Move past the opening quote
+        start = self.pos
+
+        while self.current is not None and self.current != '"':
+            self.advance()
+
+        if self.current is None:
+            raise SyntaxError(f"Unterminated string starting at position {start}")
+
+        value = self.text[start:self.pos]
+        self.advance()  # Move past the closing quote
+        return Token(TokenType.STRING, value, start)
+
     def identifier_or_keyword(self):
         start = self.pos
         while self.current is not None and (self.current.isalnum() or self.current == "_"):
@@ -56,6 +71,9 @@ class Lexer:
             if ch.isalpha() or ch == "_":
                 return self.identifier_or_keyword()
 
+            if ch == '"':
+                return self.read_string()
+
             if ch == "+":
                 self.advance()
                 return Token(TokenType.PLUS, "+", self.pos - 1)
@@ -72,6 +90,18 @@ class Lexer:
                 self.advance()
                 return Token(TokenType.DIV, "/", self.pos - 1)
 
+            if ch == "<":
+                self.advance()
+                return Token(TokenType.LESSTHAN, "<", self.pos - 1)
+            
+            if ch == ">":
+                self.advance()
+                return Token(TokenType.MORETHAN, ">", self.pos - 1)
+            
+            if ch == "%":
+                self.advance()
+                return Token(TokenType.MODULUS, "%", self.pos - 1)
+            
             if ch == "=":
                 self.advance()
                 return Token(TokenType.ASSIGN, "=", self.pos - 1)
