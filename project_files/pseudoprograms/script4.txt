@@ -1,0 +1,8 @@
+let a = 4 + 6 * 2;
+print(a);
+
+let b = (a % 5) * 3;
+print(b);
+
+let c = b > a;
+print(c);

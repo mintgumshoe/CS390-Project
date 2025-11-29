@@ -1,0 +1,9 @@
+let name = "Bob";
+let message = "Hello, " ;
+let three = 3;
+
+print(message);
+print(name);
+
+let length = three * 5 + 2;
+print(length);
